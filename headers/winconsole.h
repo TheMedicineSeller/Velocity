@@ -36,7 +36,9 @@ void gotoxy(HANDLE opHandle, int x, int y) {
 void clrscr(HANDLE opHandle) {
 	DWORD dummy;
 	CONSOLE_SCREEN_BUFFER_INFO screenBuffer;
-	FillConsoleOutputCharacter(opHandle, ' ', 
+	SetConsoleTextAttribute(opHandle, 0 | 0x0007);
+	FillConsoleOutputCharacter(opHandle,
+                               ' ', 
 							   getScreenHeight(opHandle) * getScreenWidth(opHandle),
 							   startCoord,
 							   &dummy);
@@ -46,12 +48,12 @@ void clrscr(HANDLE opHandle) {
 /*A Windows console api implementation of getch() from conio library */
 TCHAR getch(HANDLE ipHandle) {
   	DWORD con_mode, byteswritten;
-  	GetConsoleMode( ipHandle, &con_mode );
-  	SetConsoleMode( ipHandle, con_mode & ~(ENABLE_LINE_INPUT | ENABLE_ECHO_INPUT) );
-  	TCHAR c = 0;
-  	ReadConsole( ipHandle, &c, 1, &byteswritten, NULL );
-  	SetConsoleMode( ipHandle, con_mode );
-  	return c;
+  	GetConsoleMode(ipHandle, &con_mode);
+  	SetConsoleMode(ipHandle, con_mode & ~(ENABLE_LINE_INPUT | ENABLE_ECHO_INPUT));
+  	TCHAR ch = 0;
+  	ReadConsole(ipHandle, &ch, 1, &byteswritten, NULL);
+  	SetConsoleMode(ipHandle, con_mode);
+  	return ch;
 }
 
 /*---------------CONSOLE OUTPUT COLOUR SETTERS---------------*/
