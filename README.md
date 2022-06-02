@@ -7,4 +7,4 @@ Second to add several other text examples and allow choice between standard and 
 Option to add one's own typing text as a .txt.
 
 ## winconsole.h
-A C library written utilising the windows console buffer library to implement useful functions for clearing screen, getting non-blocking single keyboard entry etc.
+A C library written utilising the windows console buffer library to implement useful functions for clearing screen, getting non-blocking single keyboard entry etc. from the conio.h library and along with that other cool console colour setting functions. This is done considering the fact that conio.h is largely incompatible with many systems and compilers (almost all compilers that aren't Turbo/Borland). 
