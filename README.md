@@ -1,5 +1,5 @@
 # Velocity ver 0.1
-A lightweight and fast system console Typing speed Evaluator for Windows in C/C++. To run velocity either build from source using cmake/ninja or download the velocity executable (prefer the latter).
+A lightweight and fast system console Typing speed Evaluator for Windows in C/C++. To run velocity either build from source using cmake/ninja or download the velocity executable and run in command prompt with .\velocity (prefer the latter).
 
 ## Improvements
 First of all to add a File handler that writes the user performance into history.txt and take inferences from it.
