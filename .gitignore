@@ -1,0 +1,15 @@
+# vscode
+.vscode
+
+# Unnecessary CMake spat files
+CMakeFiles/
+
+.ninja_deps
+.ninja_log
+CMakeCache.txt
+cmake_install.cmake
+
+
+# private examples
+test.cpp
+console.cpp
