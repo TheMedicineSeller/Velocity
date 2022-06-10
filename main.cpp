@@ -20,7 +20,7 @@ const char* EvaluationTexts_short[] = {
 
 	"If you're always worried about crushing the ants beneath you... you won't be able to walk.",
 
-	"#include <stdio.h>\nint main()\n\tint x = 10;\n\tfor (int i = 0; i < x; i ++)\n\t\tprintf('Hello World ');\n\treturn 0;\n}",
+	"#include <stdio.h>\nint main()\n{\nint x = 10;\nfor (int i = 0; i < x; i ++)\nprintf('Hello World ');\nreturn 0;\n}",
 
 	"You'll hunt me. You'll condemn me, set the dogs on me. Because that's what needs to happen. Because sometimes the truth isn't good enough. Sometimes people deserve to have their faith rewarded."
 };
@@ -69,38 +69,44 @@ std::pair<float, float> getTypingStats (std::string input, uint16_t duration, co
 
 // Suggestion : make O(1) speed calculation inside Handler to improve efficiency <- needs a lot of rewrite
 void DynamicInputHandler (HANDLE opHandle, HANDLE ipHandle, std::string &Text, const char* correct, uint16_t duration, uint16_t &permaErrors) {
-	clrscr(opHandle);
+	/*clrscr(opHandle);*/
+	clearBG(opHandle);
 	COORD pos;
-	uint16_t ptr = 0, len = strlen(correct);
+	uint16_t ptr = 0, len = strlen(correct), linebreakptr;
 	uint8_t key, correctKey;
 	std::string opText;
 	std::pair<float, float> stats;
 	
 	SetColorGold(opHandle);
 	WriteFile(opHandle, correct, len, NULL, NULL);
+	uint8_t endrow = getCursorPosition(opHandle).Y;
+
 	gotoxy(opHandle, 0, 0);
-	uint8_t endrow = len / getScreenWidth(opHandle) + 1;
 	while (!OVER_FLAG) {
 		if (ptr >= len) {
 			OVER_FLAG = true;
 			break;
 		}
 		correctKey = correct[ptr];
+		if (correctKey == '\n')
+			linebreakptr = pos.X;
 		key = getch(ipHandle);
-		if ((key == VK_BACK)) {
+		if ((key == BACKSPACE)) {
 			if (ptr > 0) {
 				setBgColorBlack(opHandle);
 				WriteFile(opHandle, &correctKey, 1, NULL, NULL);
 				if (pos.X == 0){
-					/* TODO:
-					 if (correct[ptr-1] == '\n')
-						 make pointer move to the last char of previous line */
-					gotoxy(opHandle, getScreenWidth(opHandle) - 1, pos.Y - 1);
+
+					if (correct[ptr-1] == '\n')
+						gotoxy(opHandle, linebreakptr, pos.Y - 1);
+					else
+						gotoxy(opHandle, getScreenWidth(opHandle) - 1, pos.Y - 1);
 				}
 				gotoxy(opHandle, pos.X - 1, pos.Y);
 				Text.pop_back();
 				ptr --;
 			}
+			
 		} else {
 			if (key == correct[ptr])
 				SetBgColorGreen(opHandle);
@@ -126,9 +132,9 @@ void DynamicInputHandler (HANDLE opHandle, HANDLE ipHandle, std::string &Text, c
 	gotoxy(opHandle, 0, endrow + 3);
 	
 	if (ptr >= len)
-		WriteFile(opHandle, "\nCompleted..(Press ENTER for Menu)", 36, NULL, NULL);
+		WriteFile(opHandle, "\nCompleted..(Press ENTER for Menu)", 35, NULL, NULL);
 	else
-		WriteFile(opHandle, "\nTime over! (Press ENTER for Menu)", 36, NULL, NULL);
+		WriteFile(opHandle, "\nTime over! (Press ENTER for Menu)", 35, NULL, NULL);
 }
 
 uint16_t Timer(uint16_t duration) {
