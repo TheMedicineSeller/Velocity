@@ -13,3 +13,4 @@ cmake_install.cmake
 # private examples
 test.cpp
 console.cpp
+test.exe
