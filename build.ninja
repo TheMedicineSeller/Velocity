@@ -46,6 +46,7 @@ build cmake_object_order_depends_target_velocity: phony || CMakeFiles/velocity.d
 
 build CMakeFiles/velocity.dir/main.cpp.obj: CXX_COMPILER__velocity_ D$:/C++/Projects/Velocity/main.cpp || cmake_object_order_depends_target_velocity
   DEP_FILE = CMakeFiles\velocity.dir\main.cpp.obj.d
+  FLAGS = -O2 -Wall
   INCLUDES = -ID:/C++/Projects/Velocity/headers
   OBJECT_DIR = CMakeFiles\velocity.dir
   OBJECT_FILE_DIR = CMakeFiles\velocity.dir
@@ -59,6 +60,7 @@ build CMakeFiles/velocity.dir/main.cpp.obj: CXX_COMPILER__velocity_ D$:/C++/Proj
 # Link the executable velocity.exe
 
 build velocity.exe: CXX_EXECUTABLE_LINKER__velocity_ CMakeFiles/velocity.dir/main.cpp.obj
+  FLAGS = -O2 -Wall
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\velocity.dir
   POST_BUILD = cd .

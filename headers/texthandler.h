@@ -45,7 +45,7 @@ std::vector<const char*> EvaluationTexts_long{
 };
 
 
-void LoadParas (const char* filename) {
+void LoadParasfromText (const char* filename) {
     std::ifstream fileHandle(TEXTS_DIR + filename);
     if (fileHandle.is_open()) {
         std::string para;
@@ -67,11 +67,7 @@ void LoadParas (const char* filename) {
     }
 }
 
-const char* CreateRandomPara (const std::vector< std::string > &Wordlist, int numberofWords) {
-    // Init the generator ? or global ?
-}
-
-void LoadPermutations (const char* filename) {
+void LoadPermutationsfromText (const char* filename, std::mt19937 &RandomEngine) {
 
     std::ifstream fileHandle(TEXTS_DIR + filename);
     std::vector< std::string > Words;
@@ -84,7 +80,37 @@ void LoadPermutations (const char* filename) {
         }
         fileHandle.close();
 
-        // permute and append 
+        std::uniform_int_distribution<int> RNG(0, Words.size());
+        for (int i = 0; i < 10; i ++) {
+            std::string Para("");
+            for (int i = 0; i < 30; i ++) {
+                int randidx = RNG(RandomEngine);
+                Para.append(Words[randidx]);
+                Para.push_back(' ');
+            }
+            Para.pop_back();
+            EvaluationTexts_short.push_back(Para.c_str());
+        }
+        for (int i = 0; i < 7; i ++) {
+            std::string Para("");
+            for (int i = 0; i < 50; i ++) {
+                int randidx = RNG(RandomEngine);
+                Para.append(Words[randidx]);
+                Para.push_back(' ');
+            }
+            Para.pop_back();
+            EvaluationTexts_short.push_back(Para.c_str());
+        }
+        for (int i = 0; i < 5; i ++) {
+            std::string Para("");
+            for (int i = 0; i < 100; i ++) {
+                int randidx = RNG(RandomEngine);
+                Para.append(Words[randidx]);
+                Para.push_back(' ');
+            }
+            Para.pop_back();
+            EvaluationTexts_short.push_back(Para.c_str());
+        }
 
     } else {
         std::cout<< "ERROR::Unable to open "<< filename<< "\n";

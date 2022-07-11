@@ -126,12 +126,12 @@ int main () {
 		std::cout<< "ERROR::CONSOLE::INPUT::NOT FOUND";
 		exit(EXIT_FAILURE);
 	}
-	
-	auto t_now = std::chrono::system_clock::now();
-	srand(std::chrono::system_clock::to_time_t(t_now));
 
-	LoadParas("paras.txt");
-	// LoadPermutations("commonWords5000.txt");
+	std::random_device entropy_seed;
+	std::mt19937 randomEngine(entropy_seed());
+
+	LoadParasfromText("paras.txt");
+	LoadPermutationsfromText("commonWords5000.txt", randomEngine);
 
 	int choice, randidx;
 	std::string textbuffer, referenceText;
@@ -150,32 +150,45 @@ int main () {
 				textbuffer.clear();
 				permaErrors = 0;
 
-				std::cout<< "\nEnter 0 to practice with random predeclared text or 1 to practice with custom input: ";
+				std::cout<< "\nEnter 0 to practice with random text or 1 to practice with custom input: ";
 				std::cin>> choice;
 				switch (choice)
 				{
 					case 0:
 						std::cout<< "\nEnter the length of text preferred..\nShort (1)[30 seconds time], Medium (2)[1 minute time], Long (3)[2 minutes time]\nTest begins once entered: ";
 						std::cin>> choice;
+						
 						switch (choice)
 						{
 							case 1:
 								// short text
-								randidx = rand() % EvaluationTexts_short.size();
+								// randidx = rand() % EvaluationTexts_short.size();
+								{
+								std::uniform_int_distribution<int> RNG_short(0, EvaluationTexts_short.size() - 1);
+								randidx = RNG_short(randomEngine);
 								referenceText = EvaluationTexts_short[randidx];
 								duration = 30;
+								}
 							break;
 							case 2:
 								// medium text
-								randidx = rand() % EvaluationTexts_medium.size();
+								// randidx = rand() % EvaluationTexts_medium.size();
+								{
+								std::uniform_int_distribution<int> RNG_medium(0, EvaluationTexts_medium.size() - 1);
+								randidx = RNG_medium(randomEngine);
 								referenceText = EvaluationTexts_medium[randidx];
 								duration = 60;
+								}
 							break;
 							case 3:
 								// long text
-								randidx = rand() % EvaluationTexts_long.size();
+								// randidx = rand() % EvaluationTexts_long.size();
+								{
+								std::uniform_int_distribution<int> RNG_long(0, EvaluationTexts_long.size() - 1);
+								randidx = RNG_long(randomEngine);
 								referenceText = EvaluationTexts_long[randidx];
 								duration = 120;
+								}
 							break;
 							default:
 								std::cout<< "Entered invalid option...\n";
@@ -184,7 +197,7 @@ int main () {
 						}
 					break;
 					case 1:
-						// file read
+						// Read custom text
 					break;
 					default:
 						std::cout<< "Entered invalid option...\n";

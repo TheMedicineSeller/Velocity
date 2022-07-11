@@ -70,7 +70,6 @@ void gotoxy(HANDLE opHandle, int x, int y) {
 /*A Windows console api implementation of clrscr() from conio library */
 void clrscr(HANDLE opHandle) {
 	DWORD dummy;
-	CONSOLE_SCREEN_BUFFER_INFO screenBuffer;
 	setBgColorBlack(opHandle);
 	FillConsoleOutputCharacter(opHandle,
                                ' ', 
