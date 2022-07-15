@@ -13,7 +13,7 @@ static bool OVER_FLAG;
 /*------- LIST OF TEXTS TO TYPE -------
 TODO: Addition to the Text collection will be done along with introducing RANDOM text Generators*/
 
-float heaviside (float x) {
+inline float heaviside (float x) {
 	return (x > 0) ? x : 0;
 }
 
@@ -133,6 +133,10 @@ int main () {
 	LoadParasfromText("paras.txt");
 	LoadPermutationsfromText("commonWords5000.txt", randomEngine);
 
+	std::uniform_int_distribution<int> RNG_short (0, EvaluationTexts_short.size()  - 1);
+	std::uniform_int_distribution<int> RNG_medium(0, EvaluationTexts_medium.size() - 1);
+	std::uniform_int_distribution<int> RNG_long  (0, EvaluationTexts_long.size()   - 1);
+
 	int choice, randidx;
 	std::string textbuffer, referenceText;
 	uint16_t duration, time_took, permaErrors;
@@ -163,32 +167,27 @@ int main () {
 							case 1:
 								// short text
 								// randidx = rand() % EvaluationTexts_short.size();
-								{
-								std::uniform_int_distribution<int> RNG_short(0, EvaluationTexts_short.size() - 1);
+								// std::uniform_int_distribution<int> RNG_short(0, EvaluationTexts_short.size() - 1);
 								randidx = RNG_short(randomEngine);
 								referenceText = EvaluationTexts_short[randidx];
 								duration = 30;
-								}
+								
 							break;
 							case 2:
 								// medium text
 								// randidx = rand() % EvaluationTexts_medium.size();
-								{
-								std::uniform_int_distribution<int> RNG_medium(0, EvaluationTexts_medium.size() - 1);
 								randidx = RNG_medium(randomEngine);
 								referenceText = EvaluationTexts_medium[randidx];
 								duration = 60;
-								}
+								
 							break;
 							case 3:
 								// long text
 								// randidx = rand() % EvaluationTexts_long.size();
-								{
-								std::uniform_int_distribution<int> RNG_long(0, EvaluationTexts_long.size() - 1);
 								randidx = RNG_long(randomEngine);
 								referenceText = EvaluationTexts_long[randidx];
 								duration = 120;
-								}
+								
 							break;
 							default:
 								std::cout<< "Entered invalid option...\n";
