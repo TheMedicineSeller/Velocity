@@ -1,4 +1,4 @@
-# Velocity ver 0.1
+# Velocity ver 0.2
 A super lightweight and fast Typing speed Evaluator for Windows Command Prompt/ Powershell in C/C++. To run velocity either build from source using `cmake`/`ninja` or clone the repo and add the path of the project (where `velocity.exe` resides) to path environment variable to run anywhere using the command `velocity` (prefer the latter).
 
 ## Improvements ?
