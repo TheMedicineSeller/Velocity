@@ -3,6 +3,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <sstream>
 #include <vector>
 #include <random>
 
@@ -44,6 +45,7 @@ std::vector<std::string> EvaluationTexts_long{
 	"equal invent necessary courageous sofa sticky hate macho produce adorable spiritual clap temper mellow fact apparatus group unequaled modern imperfect trick challenge coat chivalrous snatch present hanging sassy peaceful funny meek curious perpetual teaching face receipt small judge meal idea fall pickle abiding glue acrid filthy annoyed nod like guarantee puffy anxious excite juvenile sea stimulating tire peep knowing swing sleep heavy lackadaisical suit drab bewildered satisfy tart current adhesive join brick gigantic scared boundless"
 };
 
+std::vector<std::string> EvaluationTexts_custom;
 
 void LoadParasfromText (const char* filename) {
 
@@ -115,6 +117,19 @@ void LoadPermutationsfromText (const char* filename, std::mt19937 &RandomEngine)
 
     } else {
         std::cout<< "ERROR::Unable to open "<< filename<< "\n";
+    }
+}
+
+void LoadCustomText (const std::string &filepath) {
+    std::ifstream fileHandle(filepath);
+    if (fileHandle.is_open()) {
+        std::stringstream reader;
+        reader << fileHandle.rdbuf();
+        EvaluationTexts_custom.push_back(reader.str());
+        fileHandle.close();
+
+    } else {
+        std::cout<< "ERROR::Unable to open file. Provide correct path.\n";
     }
 }
 

@@ -138,7 +138,7 @@ int main () {
 	std::uniform_int_distribution<int> RNG_long  (0, EvaluationTexts_long.size()   - 1);
 
 	int choice, randidx;
-	std::string textbuffer, referenceText;
+	std::string textbuffer, referenceText, customFilePath;
 	uint16_t duration, time_took, permaErrors;
 	
 	SetColorBlue(opHandle);
@@ -196,7 +196,16 @@ int main () {
 						}
 					break;
 					case 1:
-						// Read custom text
+						std::cout<< "Enter the path(absolute or relative to the executable folder) of the text file you want to practice with: ";
+						std::cin>> customFilePath;
+						LoadCustomText(customFilePath);
+						{
+						std::uniform_int_distribution<int> RNG_custom(0, EvaluationTexts_custom.size()); 
+						randidx = RNG_custom(randomEngine);
+						}
+						referenceText = EvaluationTexts_custom[randidx];
+						duration = 100;
+
 					break;
 					default:
 						std::cout<< "Entered invalid option...\n";
