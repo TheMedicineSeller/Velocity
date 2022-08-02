@@ -10,8 +10,6 @@
 /*------- GLOBAL INPUT ENTRY CONTROL FLAG -------*/
 static bool OVER_FLAG;
 
-/*------- LIST OF TEXTS TO TYPE -------
-TODO: Addition to the Text collection will be done along with introducing RANDOM text Generators*/
 
 inline float heaviside (float x) {
 	return (x > 0) ? x : 0;
@@ -32,7 +30,7 @@ std::pair<float, float> getTypingStats (std::string input, uint16_t duration, co
 
 // Suggestion : make O(1) speed calculation inside Handler to improve efficiency <- needs a lot of rewrite
 void DynamicInputHandler (HANDLE opHandle, HANDLE ipHandle, std::string &Text, const char* correct, uint16_t duration, uint16_t &permaErrors) {
-	/*clrscr(opHandle);*/
+	
 	clearBG(opHandle);
 	COORD pos;
 	uint16_t ptr = 0, len = strlen(correct), linebreakptr;
@@ -166,8 +164,6 @@ int main () {
 						{
 							case 1:
 								// short text
-								// randidx = rand() % EvaluationTexts_short.size();
-								// std::uniform_int_distribution<int> RNG_short(0, EvaluationTexts_short.size() - 1);
 								randidx = RNG_short(randomEngine);
 								referenceText = EvaluationTexts_short[randidx];
 								duration = 30;
@@ -175,7 +171,6 @@ int main () {
 							break;
 							case 2:
 								// medium text
-								// randidx = rand() % EvaluationTexts_medium.size();
 								randidx = RNG_medium(randomEngine);
 								referenceText = EvaluationTexts_medium[randidx];
 								duration = 60;
@@ -183,7 +178,6 @@ int main () {
 							break;
 							case 3:
 								// long text
-								// randidx = rand() % EvaluationTexts_long.size();
 								randidx = RNG_long(randomEngine);
 								referenceText = EvaluationTexts_long[randidx];
 								duration = 120;
@@ -232,8 +226,7 @@ int main () {
 				std::cin.get();
 			break;
 			case 1:
-				/*TODO : Write performance from stats into files and make inferences*/
-				// inference
+				/*TODO : Write performance into file and performance graph?*/
 			break;
 			case 2:
 				std::cout<< "\nQuitting Velocity...";
